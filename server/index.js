@@ -7,15 +7,27 @@ app.use(cors());
 app.use(express.json());
 
 const balances = {
-  "0x1": 100,
-  "0x2": 50,
-  "0x3": 75,
+  "d4f3dd5c4b4596d9a40f": 100,
+  "627ae1a9e97ad98fa229": 50,
+  "29cfd3dec8a1f2df0aa1": 75,
+};
+
+const transCount = {
+  "d4f3dd5c4b4596d9a40f": 1,
+  "627ae1a9e97ad98fa229": 0,
+  "29cfd3dec8a1f2df0aa1": 5,
 };
 
 app.get("/balance/:address", (req, res) => {
   const { address } = req.params;
   const balance = balances[address] || 0;
   res.send({ balance });
+});
+
+app.get("/transCount/:address", (req, res) => {
+  const { address } = req.params;
+  const transNb = transCount[address] || 0;
+  res.send({ transNb });
 });
 
 app.post("/send", (req, res) => {
